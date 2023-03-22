@@ -1,0 +1,37 @@
+{
+  "name": "everest-coding-challenge-1",
+  "version": "0.0.0",
+  "description": "-------------------------",
+  "private": true,
+  "engines": {
+    "node": ">=16",
+    "yarn": "^1.19.0"
+  },
+  "scripts": {
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "lint:eslint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js)\" --fix",
+    "lint:prettier": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|json|md)\" --write",
+    "lint": "npm run lint:prettier && npm run lint:eslint"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.4",
+    "@types/chai-as-promised": "^7.1.5",
+    "@types/lodash-es": "^4.17.7",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.15.5",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0",
+    "eslint-import-resolver-typescript": "^3.5.3",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jest": "^27.2.1",
+    "eslint-plugin-node": "^11.1.0",
+    "prettier": "^2.8.6",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.2"
+  }
+}

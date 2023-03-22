@@ -1,0 +1,10 @@
+**/node_modules/
+**/.env
+**/dist
+**/lib
+
+**/.idea
+**/.vscode
+**/*.log
+
+**/.npmrc
