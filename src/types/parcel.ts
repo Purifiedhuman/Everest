@@ -1,3 +1,5 @@
+import type { Vehicle } from "./vehicle";
+
 export type Parcel = {
   id: number;
   weightInKg: number;
@@ -6,9 +8,14 @@ export type Parcel = {
   totalCost?: number;
   discountedAmount?: number;
   discountedCost?: number;
+  deliveryTimeInHours?: number;
 };
 
 export type ReadParcelData = {
   baseDeliveryCost: number;
   parcelData: Parcel[];
+};
+
+export type ReadParcelDataV2 = ReadParcelData & {
+  vehicleData: Vehicle[];
 };

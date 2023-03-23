@@ -8,18 +8,22 @@
     "yarn": "^1.19.0"
   },
   "scripts": {
-    "dev": "ts-node-dev --respawn src/index.ts",
+    "dev:calculate-delivery-cost": "ts-node-dev --respawn src/delivery-cost-index.ts",
+    "dev:calculate-delivery-time": "ts-node-dev --respawn src/delivery-time-index.ts",
     "lint:eslint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js)\" --fix",
     "lint:prettier": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|json|md)\" --write",
     "lint": "npm run lint:prettier && npm run lint:eslint"
   },
   "dependencies": {
-    "lodash-es": "^4.17.21"
+    "bignumber.js": "^9.1.1",
+    "lodash-es": "^4.17.21",
+    "luxon": "^3.3.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
     "@types/lodash-es": "^4.17.7",
+    "@types/luxon": "^3.2.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.15.5",
     "@typescript-eslint/eslint-plugin": "^5.56.0",

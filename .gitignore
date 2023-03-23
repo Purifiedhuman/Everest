@@ -8,3 +8,6 @@
 **/*.log
 
 **/.npmrc
+
+input.txt
+output.txt

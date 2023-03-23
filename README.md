@@ -59,7 +59,8 @@ None for now
 
 ## Running the project
 
-    $ npm run dev
+    $ npm run dev:calculate-delivery-cost
+    $ npm run dev:calculate-delivery-time
 
 ## Linting
 
