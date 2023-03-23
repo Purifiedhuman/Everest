@@ -1,4 +1,5 @@
-import * as fs from "fs/promises";
+import * as fsPromise from "fs/promises";
+import * as fs from "fs";
 
 import type { Parcel } from "@/types/parcel";
 
@@ -11,11 +12,32 @@ export default class WriteFile {
 
   public async writeParcelData(parcelData: Parcel[]): Promise<void> {
     try {
+      //Check if file exists
+      if (!fs.existsSync(this._filePath)) {
+        await fsPromise.writeFile(this._filePath, "");
+      }
       //Clear the file before writing to it
-      await fs.truncate(this._filePath, 0);
+      await fsPromise.truncate(this._filePath, 0);
       for (let i = 0; i < parcelData.length; i++) {
         const content = `${parcelData[i].id} ${parcelData[i].discountedAmount} ${parcelData[i].discountedCost}\n`;
-        await fs.appendFile(this._filePath, content);
+        await fsPromise.appendFile(this._filePath, content);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  public async writeParcelDataWithDelivery(parcelData: Parcel[]): Promise<void> {
+    try {
+      //Check if file exists
+      if (!fs.existsSync(this._filePath)) {
+        await fsPromise.writeFile(this._filePath, "");
+      }
+      //Clear the file before writing to it
+      await fsPromise.truncate(this._filePath, 0);
+      for (let i = 0; i < parcelData.length; i++) {
+        const content = `${parcelData[i].id} ${parcelData[i].discountedAmount} ${parcelData[i].discountedCost} ${parcelData[i].deliveryTimeInHours}\n`;
+        await fsPromise.appendFile(this._filePath, content);
       }
     } catch (err) {
       console.log(err);

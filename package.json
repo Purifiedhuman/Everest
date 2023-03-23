@@ -15,12 +15,15 @@
     "lint": "npm run lint:prettier && npm run lint:eslint"
   },
   "dependencies": {
-    "lodash-es": "^4.17.21"
+    "bignumber.js": "^9.1.1",
+    "lodash-es": "^4.17.21",
+    "luxon": "^3.3.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
     "@types/lodash-es": "^4.17.7",
+    "@types/luxon": "^3.2.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.15.5",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
