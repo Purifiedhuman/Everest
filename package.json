@@ -12,7 +12,10 @@
     "dev:calculate-delivery-time": "ts-node-dev --respawn src/delivery-time-index.ts",
     "lint:eslint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js)\" --fix",
     "lint:prettier": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|json|md)\" --write",
-    "lint": "npm run lint:prettier && npm run lint:eslint"
+    "lint": "npm run lint:prettier && npm run lint:eslint",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
     "bignumber.js": "^9.1.1",
@@ -20,14 +23,13 @@
     "luxon": "^3.3.0"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.4",
-    "@types/chai-as-promised": "^7.1.5",
     "@types/lodash-es": "^4.17.7",
     "@types/luxon": "^3.2.0",
-    "@types/mocha": "^10.0.1",
     "@types/node": "^18.15.5",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
+    "@vitest/coverage-c8": "^0.29.7",
+    "@vitest/ui": "^0.29.7",
     "eslint": "^8.36.0",
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-import": "^2.27.5",
@@ -36,6 +38,7 @@
     "prettier": "^2.8.6",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.2",
+    "vitest": "^0.29.7"
   }
 }
