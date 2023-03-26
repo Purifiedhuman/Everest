@@ -2,6 +2,7 @@
 **/.env
 **/dist
 **/lib
+**/coverage
 
 **/.idea
 **/.vscode
@@ -9,5 +10,4 @@
 
 **/.npmrc
 
-input.txt
-output.txt
+**/output.txt

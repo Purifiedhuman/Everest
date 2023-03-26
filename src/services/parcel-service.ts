@@ -9,11 +9,11 @@ import type { Parcel, ReadParcelData, ReadParcelDataV2 } from "@/types/parcel";
 const WEIGHT_COST = 10;
 const DISTANCE_COST = 5;
 
-type ProcessingParcelData = Parcel & {
+export type ProcessingParcelData = Parcel & {
   status: "undelivered" | "delivering" | "delivered";
 };
 
-type ProcessingVehicleData = Vehicle & {
+export type ProcessingVehicleData = Vehicle & {
   status: "available" | "unavailable";
   availableIn: number;
   deliveringParcels: ProcessingParcelData[];
@@ -46,7 +46,7 @@ export function calculateTotalCost(readParcelData: ReadParcelData): Parcel[] {
   return readParcelData.parcelData;
 }
 
-function validateMatchingDiscountCode(parcel: Parcel): Parcel {
+export function validateMatchingDiscountCode(parcel: Parcel): Parcel {
   const matchingDiscount = DISCOUNT_MOCK_DATA.find((discount) => {
     const isMatchingCode = discount.codeName === parcel.discountCodeName;
     const isMatchingDistance =
@@ -158,7 +158,7 @@ export function calculateDeliveryTime(readParcelDataV2: ReadParcelDataV2): Parce
 
 //Knapsack Problem resolve using dynamic programming with memoization (https://www.youtube.com/watch?v=xOlhR_2QCXY)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function findMaxWeight(parcelData: ProcessingParcelData[], vehicleMaxWeight: number): number {
+export function findMaxWeight(parcelData: ProcessingParcelData[], vehicleMaxWeight: number): number {
   const cache: number[][] = [[]]; //arr[index][capacity]
 
   //Start from the last parcel and work backwards
@@ -196,7 +196,7 @@ function findMaxWeight(parcelData: ProcessingParcelData[], vehicleMaxWeight: num
 }
 
 //Knapsack Problem resolve using dynamic programming with memoization (https://www.youtube.com/watch?v=xOlhR_2QCXY)
-function findBestParcelsCombination(
+export function findBestParcelsCombination(
   parcelData: ProcessingParcelData[],
   vehicleMaxWeight: number,
 ): ProcessingParcelData[] {
@@ -230,17 +230,18 @@ function findBestParcelsCombination(
 
       //If weights are similar, we should give priority to the one that can be delivered first
       if (takeCurrentParcelWeight === skipCurrentParcelWeight) {
+        //Only take into account the longest distance as it is assumed all destinations can be covered in a single route
         const skipCurrentParcelDistance = skipCurrentParcel.reduce(
-          (acc, parcel) => acc + parcel.destinationDistanceInKm,
+          (acc, parcel) => (acc > parcel.destinationDistanceInKm ? acc : parcel.destinationDistanceInKm),
           0,
         );
         const takeCurrentParcelDistance = takeCurrentParcel.reduce(
-          (acc, parcel) => acc + parcel.destinationDistanceInKm,
+          (acc, parcel) => (acc > parcel.destinationDistanceInKm ? acc : parcel.destinationDistanceInKm),
           0,
         );
 
-        const maxDistance = Math.max(takeCurrentParcelDistance, skipCurrentParcelDistance);
-        result = maxDistance === takeCurrentParcelDistance ? takeCurrentParcel : skipCurrentParcel;
+        const minDistance = Math.min(takeCurrentParcelDistance, skipCurrentParcelDistance);
+        result = minDistance === takeCurrentParcelDistance ? takeCurrentParcel : skipCurrentParcel;
       } else {
         const max = Math.max(takeCurrentParcelWeight, skipCurrentParcelWeight);
         result = max === takeCurrentParcelWeight ? takeCurrentParcel : skipCurrentParcel;
