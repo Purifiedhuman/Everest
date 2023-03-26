@@ -1,7 +1,7 @@
 import type { Vehicle } from "./vehicle";
 
 export type Parcel = {
-  id: number;
+  id: string;
   weightInKg: number;
   destinationDistanceInKm: number;
   discountCodeName: string | null;
