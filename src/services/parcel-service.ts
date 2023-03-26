@@ -9,11 +9,11 @@ import type { Parcel, ReadParcelData, ReadParcelDataV2 } from "@/types/parcel";
 const WEIGHT_COST = 10;
 const DISTANCE_COST = 5;
 
-type ProcessingParcelData = Parcel & {
+export type ProcessingParcelData = Parcel & {
   status: "undelivered" | "delivering" | "delivered";
 };
 
-type ProcessingVehicleData = Vehicle & {
+export type ProcessingVehicleData = Vehicle & {
   status: "available" | "unavailable";
   availableIn: number;
   deliveringParcels: ProcessingParcelData[];
@@ -230,17 +230,18 @@ export function findBestParcelsCombination(
 
       //If weights are similar, we should give priority to the one that can be delivered first
       if (takeCurrentParcelWeight === skipCurrentParcelWeight) {
+        //Only take into account the longest distance as it is assumed all destinations can be covered in a single route
         const skipCurrentParcelDistance = skipCurrentParcel.reduce(
-          (acc, parcel) => acc + parcel.destinationDistanceInKm,
+          (acc, parcel) => (acc > parcel.destinationDistanceInKm ? acc : parcel.destinationDistanceInKm),
           0,
         );
         const takeCurrentParcelDistance = takeCurrentParcel.reduce(
-          (acc, parcel) => acc + parcel.destinationDistanceInKm,
+          (acc, parcel) => (acc > parcel.destinationDistanceInKm ? acc : parcel.destinationDistanceInKm),
           0,
         );
 
-        const maxDistance = Math.max(takeCurrentParcelDistance, skipCurrentParcelDistance);
-        result = maxDistance === takeCurrentParcelDistance ? takeCurrentParcel : skipCurrentParcel;
+        const minDistance = Math.min(takeCurrentParcelDistance, skipCurrentParcelDistance);
+        result = minDistance === takeCurrentParcelDistance ? takeCurrentParcel : skipCurrentParcel;
       } else {
         const max = Math.max(takeCurrentParcelWeight, skipCurrentParcelWeight);
         result = max === takeCurrentParcelWeight ? takeCurrentParcel : skipCurrentParcel;
